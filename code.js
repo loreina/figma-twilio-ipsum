@@ -7,21 +7,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// Prefix suggestions
-const prefixOptions = ["AC", "OR", "US"];
-// Listen on input and suggest options
+// Parameter suggestions
+const prefixList = ["AC", "OR", "US"];
+// Listen for inputs
 figma.parameters.on("input", ({ key, query, result }) => {
     switch (key) {
         case "prefix":
-            result.setSuggestions(prefixOptions.filter((s) => s.includes(query)));
+            result.setSuggestions(prefixList.filter((s) => s.includes(query)));
             break;
         default:
             return;
     }
 });
-figma.on("run", ({ parameters }) => __awaiter(this, void 0, void 0, function* () {
-    // Inputs
-    const prefix = parameters["prefix"];
+// Run plugin
+figma.on("run", ({ command, parameters }) => __awaiter(this, void 0, void 0, function* () {
+    // Run function based on command
+    switch (command) {
+        case "sid":
+            createSID(parameters.prefix);
+            setTimeout(figma.closePlugin, 500);
+            break;
+        default:
+            return;
+    }
+}));
+// Function to create dummy SIDs
+function createSID(prefix) {
+    // Throw error is prefix > 2 characters
     if (prefix.length > 2) {
         figma.notify("Prefix is more than 2 characters.", { error: true });
         figma.closePlugin();
@@ -41,10 +53,10 @@ figma.on("run", ({ parameters }) => __awaiter(this, void 0, void 0, function* ()
             // Replace text layer with SID
             node.insertCharacters(0, generateSID(prefix));
         }
+        figma.notify("Successfully ran Twilio Dummy 🎉");
     }));
-    setTimeout(figma.closePlugin, 500);
-}));
-// Function to generate SID
+}
+// Helper function to generate SID
 function generateSID(prefix) {
     const IdLength = 32;
     const CharacterWhitelist = "abcdef0123456789";

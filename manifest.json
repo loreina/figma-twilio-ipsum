@@ -3,15 +3,19 @@
   "id": "1040423794729523647",
   "api": "1.0.0",
   "main": "code.js",
-  "editorType": [
-    "figma"
-  ],
-  "parameters": [
+  "editorType": ["figma"],
+  "menu": [
     {
-      "name": "Prefix",
-      "key": "prefix",
-      "description": "Input or select a SID prefix (max 2. characters)",
-      "allowFreeform": true
+      "name": "SID",
+      "command": "sid",
+      "parameters": [
+        {
+          "name": "Prefix",
+          "key": "prefix",
+          "description": "Input or select a SID prefix (max 2. characters)",
+          "allowFreeform": true
+        }
+      ]
     }
   ]
 }

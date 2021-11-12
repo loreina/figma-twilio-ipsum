@@ -1,24 +1,36 @@
-// Prefix suggestions
-const prefixOptions = ["AC", "OR", "US"];
+// Parameter suggestions
+const prefixList = ["AC", "OR", "US"];
 
-// Listen on input and suggest options
+// Listen for inputs
 figma.parameters.on("input", ({ key, query, result }: ParameterInputEvent) => {
   switch (key) {
     case "prefix":
-      result.setSuggestions(prefixOptions.filter((s) => s.includes(query)));
+      result.setSuggestions(prefixList.filter((s) => s.includes(query)));
       break;
     default:
       return;
   }
 });
 
-figma.on("run", async ({ parameters }: RunEvent) => {
-  // Inputs
-  const prefix = parameters["prefix"];
+// Run plugin
+figma.on("run", async ({ command, parameters }: RunEvent) => {
+  // Run function based on command
+  switch (command) {
+    case "sid":
+      createSID(parameters.prefix);
+      setTimeout(figma.closePlugin, 500);
+      break;
+    default:
+      return;
+  }
+});
 
+// Function to create dummy SIDs
+function createSID(prefix) {
+  // Throw error is prefix > 2 characters
   if (prefix.length > 2) {
-      figma.notify("Prefix is more than 2 characters.", {error: true});
-      figma.closePlugin();
+    figma.notify("Prefix is more than 2 characters.", { error: true });
+    figma.closePlugin();
   }
 
   // Array of selected nodes
@@ -40,12 +52,12 @@ figma.on("run", async ({ parameters }: RunEvent) => {
       // Replace text layer with SID
       node.insertCharacters(0, generateSID(prefix));
     }
+
+    figma.notify("Successfully ran Twilio Dummy 🎉");
   });
+}
 
-  setTimeout(figma.closePlugin, 500);
-});
-
-// Function to generate SID
+// Helper function to generate SID
 function generateSID(prefix) {
   const IdLength = 32;
   const CharacterWhitelist = "abcdef0123456789";
