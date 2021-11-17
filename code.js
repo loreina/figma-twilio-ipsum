@@ -57,6 +57,8 @@ function createSID(prefix) {
     }));
 }
 // Helper function to generate SID
+// Twilio uses 34-character SIDs
+// https://www.twilio.com/docs/glossary/what-is-a-sid#string-identifiers-at-twilio
 function generateSID(prefix) {
     const IdLength = 32;
     const CharacterWhitelist = "abcdef0123456789";
