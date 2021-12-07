@@ -1,7 +1,7 @@
 {
   "name": "figma-twilio-ipsum",
   "version": "1.0.0",
-  "description": "Your Figma plugin",
+  "description": "Generate realistic placeholder data into text layers in Figma.",
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json"

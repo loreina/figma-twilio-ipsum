@@ -20,3 +20,15 @@ Generate realistic placeholder data into text layers in Figma.
 2. Install project dependencies: `npm run install`
 3. Import plugin into Figma: Plugins > Development > Import plugin from manifest...
 4. Build plugin: `npm run build`
+
+## Contributing
+
+This project welcomes contributions from the community.
+
+## Code of Conduct
+
+Please be aware that this project has a [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md). The tl;dr is to just be excellent to each other ❤️
+
+## Maintenance
+
+This project is maintained by the [design systems team](https://github.com/orgs/twilio-labs/teams/design-systems).
