@@ -1,32 +1,8 @@
 // Parameter suggestions
-const prefixList = ["AC", "OR", "US"];
-
-// Listen for inputs
-figma.parameters.on("input", ({ key, query, result }: ParameterInputEvent) => {
-  switch (key) {
-    case "prefix":
-      result.setSuggestions(prefixList.filter((s) => s.includes(query)));
-      break;
-    default:
-      return;
-  }
-});
-
-// Run plugin
-figma.on("run", async ({ command, parameters }: RunEvent) => {
-  // Run function based on command
-  switch (command) {
-    case "sid":
-      createSID(parameters.prefix);
-      setTimeout(figma.closePlugin, 500);
-      break;
-    default:
-      return;
-  }
-});
+export const sidPrefixList = ["AC", "OR", "US"];
 
 // Function to create dummy SIDs
-function createSID(prefix) {
+export function createSID(prefix) {
   // Throw error is prefix > 2 characters
   if (prefix.length > 2) {
     figma.notify("Prefix is more than 2 characters.", { error: true });
@@ -53,7 +29,7 @@ function createSID(prefix) {
       node.insertCharacters(0, generateSID(prefix));
     }
 
-    figma.notify("Successfully ran Twilio Dummy 🎉");
+    figma.notify("Successfully ran Twilio Ipsum 🎉");
   });
 }
 
