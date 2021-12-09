@@ -2,10 +2,12 @@
 export const sidPrefixList = ['AC', 'OR', 'US'];
 
 // Function to create dummy SIDs
-export function createSID(prefix) {
+export function createSID(params) {
+  const { prefix } = params;
+
   // Throw error is prefix > 2 characters
   if (prefix.length > 2) {
-    figma.notify('Prefix is more than 2 characters.', {error: true});
+    figma.notify('Prefix is more than 2 characters.', { error: true });
     figma.closePlugin();
   } else {
     const IdLength = 32;
