@@ -1,11 +1,18 @@
-// Data types
-import { createSID, sidPrefixList } from './data/sid';
+// Data library
+import { createIntegration } from './lib/integration';
+import { createSID } from './lib/sid';
+
+// Constants
+import { sidPrefixes } from './constants/sid';
 
 // Listen for inputs
 figma.parameters.on('input', ({ key, query, result }: ParameterInputEvent) => {
   switch (key) {
+    // case 'integrationType':
+    //   result.setSuggestions(integrationTypes.filter((s) => s.includes(query)));
+    //   break;
     case 'prefix':
-      result.setSuggestions(sidPrefixList.filter((s) => s.includes(query)));
+      result.setSuggestions(sidPrefixes.filter((s) => s.includes(query)));
       break;
     default:
       return;
@@ -30,14 +37,18 @@ function traverseNodes() {
   }
 }
 
-async function fetchData(type, params) {
-  switch (type) {
+// Fetch data to populate based on command
+async function fetchData(command, parameters) {
+  switch (command) {
+    case 'destination':
+    case 'source':
+      return await createIntegration(command);
     case 'sid':
-      return await createSID(params);
+      return await createSID(parameters);
   }
 }
 
-async function generateText(type, params) {
+async function generateText(command, parameters) {
   textNodes.forEach(async (node: TextNode) => {
     const fonts = node.getRangeAllFontNames(0, node.characters.length);
 
@@ -49,7 +60,7 @@ async function generateText(type, params) {
     node.deleteCharacters(0, node.characters.length);
 
     // Replace with generated text
-    node.insertCharacters(0, await fetchData(type, params));
+    node.insertCharacters(0, await fetchData(command, parameters));
   });
 }
 

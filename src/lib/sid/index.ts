@@ -1,12 +1,11 @@
-// Parameter suggestions
-export const sidPrefixList = ['AC', 'OR', 'US'];
-
 // Function to create dummy SIDs
-export function createSID(params) {
-  const { prefix } = params;
+// Twilio uses 34-character SIDs
+// https://www.twilio.com/docs/glossary/what-is-a-sid#string-identifiers-at-twilio
+export function createSID(parameters) {
+  const { sidPrefix } = parameters;
 
   // Throw error is prefix > 2 characters
-  if (prefix.length > 2) {
+  if (sidPrefix.length > 2) {
     figma.notify('Prefix is more than 2 characters.', { error: true });
     figma.closePlugin();
   } else {
@@ -19,13 +18,6 @@ export function createSID(params) {
       id += CharacterWhitelist.charAt(Math.floor(Math.random() * CharactersWhitelistLength));
     }
 
-    return `${prefix}${id}`;
+    return `${sidPrefix}${id}`;
   }
 }
-
-// // Helper function to generate SID
-// // Twilio uses 34-character SIDs
-// // https://www.twilio.com/docs/glossary/what-is-a-sid#string-identifiers-at-twilio
-// function generateSID(prefix) {
-
-// }

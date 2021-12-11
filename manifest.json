@@ -6,12 +6,25 @@
   "editorType": ["figma"],
   "menu": [
     {
+      "name": "Integration",
+      "menu": [
+        {
+          "name": "Destination",
+          "command": "destination"
+        },
+        {
+          "name": "Source",
+          "command": "source"
+        }
+      ]
+    },
+    {
       "name": "SID",
       "command": "sid",
       "parameters": [
         {
           "name": "Prefix",
-          "key": "prefix",
+          "key": "sidPrefix",
           "description": "Input or select a SID prefix (max 2. characters)",
           "allowFreeform": true
         }
